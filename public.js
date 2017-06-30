@@ -7,7 +7,7 @@
  * github： https://github.com/sky-xsk
  * 
  */
-/*============================================================================================================================*/
+/*============================================================函数写法部分================================================================*/
 //获取id
 function getId(id) {
     return document.getElementById(id);
@@ -123,3 +123,53 @@ function preventDefault(event) {
     }
 }
 //调用方法：preventDefault(event);
+
+/*============================================================对象写法部分================================================================*/
+//cookie读，写，删除（对象的写法）
+var CookieUtil = {
+    //读取cookie
+    get: function(name) {
+        var cookieName = encodeURIComponent(name) + "=",
+            cookieStart = document.cookie.indexOf(cookieName),
+            cookieValue = null,
+            cookieEnd;
+        if (cookieStart > -1) {
+            cookieEnd = document.cookie.indexOf(";", cookieStart);
+            if (cookieEnd == -1) {
+                cookieEnd = document.cookie.length;
+            }
+            cookieValue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
+        }
+        return cookieValue;
+    },
+    //设置cookie
+    set: function(name, value, expires, path, domain, secure) {
+        var cookieText = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+        if (expires instanceof Date) {
+            cookieText += "; expires=" + expires.toGMTString();
+        }
+
+        if (path) {
+            cookieText += "; path=" + path;
+        }
+
+        if (domain) {
+            cookieText += "; domain=" + domain;
+        }
+
+        if (secure) {
+            cookieText += "; secure";
+        }
+        document.cookie = cookieText;
+    },
+    //清空cookie
+    unset: function(name, path, domain, secure) {
+        this.set(name, "", new Date(0), path, domain, secure);
+    }
+
+};
+
+//调用方法：CookieUtil.set('name','xsk'); 写入
+//调用方法：CookieUtil.get('name');  
+//调用方法：CookieUtil.unset('name');
