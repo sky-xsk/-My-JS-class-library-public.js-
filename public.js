@@ -8,6 +8,115 @@
  * 
  */
 /*============================================================函数写法部分================================================================*/
+var x = {
+    //设置样式
+    setStyle: function(obj, json) {
+        var arr = '';
+        for (arr in json) {
+            obj.style[arr] = json[arr];
+        }
+    },
+    //调用方法：x.setStyle('div',{width:200px,height:200px})
+
+    //获取样式    
+    getStyle: function(obj, attr) {
+        if (obj.currentStyle) { //兼容性的写法
+            return obj.currentStyle[attr];
+        } else {
+            return getComputedStyle(obj, null)[attr];
+        }
+    },
+    //调用方法：x.getStyle('div','width')
+
+    //添加事件方法
+    addEvent: function(obj, Sevent, fn) { //参数意义：对象，事件，函数
+        if (obj.attachEvent) {
+            obj.attachEvent('on' + Sevent, fn)
+        } else {
+            obj.addEventListener(Sevent, fn, false)
+        }
+        //两种方法 
+        //obj.attachEvent ? obj.attachEvent('on' + Sevent, fn) : obj.addEventListener(Sevent, fn, false);
+    },
+    //调用方法  x.addEvent(obj, 'click', fn); 这里以click为例子
+
+    //删除事件
+    removeEvent: function(obj, Sevent, fn) {
+        if (obj.detachEvent) {
+            obj.detachEvent('on' + Sevent, fn)
+        } else {
+            obj.removeEventListener(Sevent, fn, false)
+        }
+    },
+    //x.removeEvent(obj, 'click', fn);
+
+    //添加class类名 
+    addClass: function(obj, classNames) {
+        obj.className ? obj.className = obj.className + ' ' + classNames : obj.className = classNames;
+    },
+    //调用方法  x.addClass(obj,'classNames') 这里以click为例子
+
+    //清空class
+    removeClass: function(obj, classNames) {
+        if (obj.className) {
+            obj.className = '';
+        } else {
+            return false;
+        }
+    },
+    //调用方法  x.removeClass(obj,'classNames') 这里以click为例子
+
+    //根据数组的元素操作数组进行排序(从小到大)
+    arrSort: function(pros) {
+        return function(a, b) {
+            var value1 = a[pros];
+            var value2 = b[pros];
+            return value1 - value2 > 0 ? 1 : -1;
+        }
+    },
+    //调用方法 Array.sort(arrSort('pros'));
+
+    //阻止冒泡事件
+    stopPropagation: function(event) {
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
+    },
+    //调用方法：x.stopPropagation(event);
+
+    //阻止默认事件
+    preventDefault: function(event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    },
+    //调用方法：x.preventDefault(event);
+
+    //动态加载js
+    loadJS: function(url) {
+        var statu = true; //初始状态  
+        var js = document.getElementsByTagName("script");
+        var len = js.length;
+        for (var i = 0; i < len; i++) {
+            if (js[i].getAttribute("src") == url) {
+                statu = false; //如果已经添加，则设置为Flase，不再添加  
+            }
+        };
+        if (statu) {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = url;
+            var header = document.getElementsByTagName("head")[0];
+            header.appendChild(script);
+        }
+    },
+    //调用方法：x.loadJS(url);
+};
+
 //获取id
 function getId(id) {
     return document.getElementById(id);
@@ -56,73 +165,6 @@ function getClass(tagName, className) {
     }
 };
 //调用方法：getClass('div','divClassName')
-
-//设置样式
-function setStyle(obj, json) {
-    var arr = '';
-    for (arr in json) {
-        obj.style[arr] = json[arr];
-    }
-};
-//调用方法：setStyle('div',{width:200px,height:200px})
-
-//获取样式    
-function getStyle(obj, attr) {
-    if (obj.currentStyle) { //兼容性的写法
-        return obj.currentStyle[attr];
-    } else {
-        return getComputedStyle(obj, null)[attr];
-    }
-};
-//调用方法：getStyle('div','width')
-
-//添加事件方法
-function addEvent(obj, Sevent, fn) { //参数意义：对象，事件，函数
-    if (obj.attachEvent) {
-        obj.attachEvent('on' + Sevent, fn)
-    } else {
-        obj.addEventListener(Sevent, fn, false)
-    }
-    //两种方法 
-    //obj.attachEvent ? obj.attachEvent('on' + Sevent, fn) : obj.addEventListener(Sevent, fn, false);
-};
-//调用方法  addEvent(obj, 'click', fn); 这里以click为例子
-
-//添加class类名 
-function addClass(obj, classNames) {
-    obj.className ? obj.className = obj.className + ' ' + classNames : obj.className = classNames;
-};
-//调用方法  addClass(obj,'classNames') 这里以click为例子
-
-//根据数组的元素操作数组进行排序(从小到大)
-function arrSort(pros) {
-    return function(a, b) {
-        var value1 = a[pros];
-        var value2 = b[pros];
-        return value1 - value2 > 0 ? 1 : -1;
-    }
-}
-//调用方法 Array.sort(arrSort('pros'));
-
-//阻止冒泡事件
-function stopPropagation(event) {
-    if (event.stopPropagation) {
-        event.stopPropagation();
-    } else {
-        event.cancelBubble = true;
-    }
-}
-//调用方法：stopPropagation(event);
-
-//阻止默认事件
-function preventDefault(event) {
-    if (event.preventDefault) {
-        event.preventDefault();
-    } else {
-        event.returnValue = false;
-    }
-}
-//调用方法：preventDefault(event);
 
 /*============================================================对象写法部分================================================================*/
 //cookie读，写，删除（对象的写法）
