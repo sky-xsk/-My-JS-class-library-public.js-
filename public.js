@@ -103,7 +103,7 @@ var x = {
         var len = js.length;
         for (var i = 0; i < len; i++) {
             if (js[i].getAttribute("src") == url) {
-                statu = false; //如果已经添加，则设置为Flase，不再添加  
+                statu = false; //如果已经添加，则设置为Flase，不再添加 
             }
         };
         if (statu) {
@@ -165,6 +165,19 @@ function getClass(tagName, className) {
     }
 };
 //调用方法：getClass('div','divClassName')
+
+//时间戳转换
+function timetrans(date) {
+    var date = new Date(date * 1000); //如果date为10位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y + M + D + h + m + s;
+}
+//调用方法console.log(timetrans(456255454))
 
 /*============================================================对象写法部分================================================================*/
 //cookie读，写，删除（对象的写法）
