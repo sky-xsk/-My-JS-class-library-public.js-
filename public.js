@@ -111,7 +111,7 @@ var x = {
     },
     //调用方法：x.preventDefault(event);
 
-    //动态加载js
+    //动态（异步）加载js（同时可扩展css）
     loadJS: function(url) {
         var statu = true; //初始状态  
         var js = document.getElementsByTagName("script");
@@ -243,3 +243,39 @@ var CookieUtil = {
 //调用方法：CookieUtil.set('name','xsk'); 写入
 //调用方法：CookieUtil.get('name');  
 //调用方法：CookieUtil.unset('name');
+
+/*============================================================封装简单的运动部分================================================================*/
+function startMove(obj, json, fn) { //参数含义：对象，样式格式，函数
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function() {
+        var bStop = true;
+        for (var attr in json) {
+            var iCur = 0;
+            if (attr == 'opacity') {
+                iCur = parseInt(parseFloat(x.getStyle(obj, attr)) * 100);
+            } else {
+                iCur = parseInt(x.getStyle(obj, attr));
+            }
+            var iSpeed = (json[attr] - iCur) / 8;
+            iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+            if (iCur != json[attr]) {
+                bStop = false;
+            }
+
+            if (attr == 'opacity') {
+                obj.style.filter = 'alpha(opacity:' + (iCur + iSpeed) + ')';
+                obj.style.opacity = (iCur + iSpeed) / 100;
+            } else {
+                obj.style[attr] = iCur + iSpeed + 'px';
+            }
+        }
+        if (bStop) {
+            clearInterval(obj.timer);
+            if (fn) {
+                fn();
+            }
+        }
+    }, 30)
+}
+//调用方式： startMove('div',{width:100,height:300},function(){'div',{ opacity:0 }}); 给div对象添加运动
