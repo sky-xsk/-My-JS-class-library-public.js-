@@ -76,6 +76,21 @@ var x = {
     },
     //调用方法 Array.sort(arrSort('pros'));
 
+    //数组去重
+    arrAlong: function(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    arr.splice(j, 1);
+                    j--;
+                }
+            }
+        }
+        return arr;
+    },
+
+    //调用方法x.arrAlong();传入的参数为数组
+
     //阻止冒泡事件
     stopPropagation: function(event) {
         if (event.stopPropagation) {
