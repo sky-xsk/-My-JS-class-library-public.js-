@@ -195,7 +195,7 @@ function timetrans(date) {
 //调用方法console.log(timetrans(456255454))
 
 /*============================================================对象写法部分================================================================*/
-//cookie读，写，删除（对象的写法）
+//cookie读，写，删除（对象的写法）（高程3上的写法）
 var CookieUtil = {
     //读取cookie
     get: function(name) {
@@ -246,24 +246,24 @@ var CookieUtil = {
 
 /*============================================================封装简单的运动部分================================================================*/
 function startMove(obj, json, fn) { //参数含义：对象，样式格式，函数
-    clearInterval(obj.timer);
+    clearInterval(obj.timer); //清空定时间器
     obj.timer = setInterval(function() {
         var bStop = true;
         for (var attr in json) {
             var iCur = 0;
-            if (attr == 'opacity') {
+            if (attr == 'opacity') { //设置值
                 iCur = parseInt(parseFloat(x.getStyle(obj, attr)) * 100);
             } else {
                 iCur = parseInt(x.getStyle(obj, attr));
             }
             var iSpeed = (json[attr] - iCur) / 8;
-            iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+            iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed); //随机的运动速度
 
             if (iCur != json[attr]) {
                 bStop = false;
             }
 
-            if (attr == 'opacity') {
+            if (attr == 'opacity') { //透明度设置
                 obj.style.filter = 'alpha(opacity:' + (iCur + iSpeed) + ')';
                 obj.style.opacity = (iCur + iSpeed) / 100;
             } else {
@@ -278,4 +278,5 @@ function startMove(obj, json, fn) { //参数含义：对象，样式格式，函
         }
     }, 30)
 }
-//调用方式： startMove('div',{width:100,height:300},function(){'div',{ opacity:0 }}); 给div对象添加运动
+//调用方式： startMove('div',{width:100,height:300},function(){'div',{ opacity:0 }}); 给div对象添加运动；
+//函数部分可以嵌套
