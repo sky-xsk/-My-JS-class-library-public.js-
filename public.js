@@ -32,8 +32,10 @@ var x = {
     addEvent: function(obj, Sevent, fn) { //参数意义：对象，事件，函数
         if (obj.attachEvent) {
             obj.attachEvent('on' + Sevent, fn)
-        } else {
+        } else if (obj.addEventListener) {
             obj.addEventListener(Sevent, fn, false)
+        } else {
+            obj["on" + Sevent] = fn;
         }
         //两种方法 
         //obj.attachEvent ? obj.attachEvent('on' + Sevent, fn) : obj.addEventListener(Sevent, fn, false);
@@ -44,8 +46,10 @@ var x = {
     removeEvent: function(obj, Sevent, fn) {
         if (obj.detachEvent) {
             obj.detachEvent('on' + Sevent, fn)
-        } else {
+        } else if (obj.removeEventListener) {
             obj.removeEventListener(Sevent, fn, false)
+        } else {
+            obj["on" + Sevent] = null;
         }
     },
     //x.removeEvent(obj, 'click', fn);
@@ -244,7 +248,7 @@ var CookieUtil = {
 //调用方法：CookieUtil.get('name');  
 //调用方法：CookieUtil.unset('name');
 
-/*============================================================封装简单的运动部分================================================================*/
+/*======================================================封装简单的运动部分======================================================*/
 function startMove(obj, json, fn) { //参数含义：对象，样式格式，函数
     clearInterval(obj.timer); //清空定时间器
     obj.timer = setInterval(function() {
@@ -257,7 +261,7 @@ function startMove(obj, json, fn) { //参数含义：对象，样式格式，函
                 iCur = parseInt(x.getStyle(obj, attr));
             }
             var iSpeed = (json[attr] - iCur) / 8;
-            iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed); //随机的运动速度
+            iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed); //运动速度
 
             if (iCur != json[attr]) {
                 bStop = false;
@@ -278,5 +282,5 @@ function startMove(obj, json, fn) { //参数含义：对象，样式格式，函
         }
     }, 30)
 }
-//调用方式： startMove('div',{width:100,height:300},function(){'div',{ opacity:0 }}); 给div对象添加运动；
 //函数部分可以嵌套
+//调用方式： startMove('div',{width:100,height:300},function(){'div',{ opacity:0 }}); 给div对象添加运动；

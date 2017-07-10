@@ -15,11 +15,11 @@
         }
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>无标题文档</title>
+    <title>封装部分</title>
     <script src="public.js"></script>
     <script>
         window.onload = function() {
-            var oDiv = document.getElementById('div1');
+            var oDiv = getId('div1');
 
             oDiv.onmouseover = function() {
                 startMove(oDiv, {
@@ -29,7 +29,7 @@
                     marginTop: -50
                 }, function() {
                     startMove(oDiv, {
-                        opacity: 0
+                        opacity: 60
                     })
                 });
             };
