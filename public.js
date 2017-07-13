@@ -58,7 +58,7 @@ var x = {
     addClass: function(obj, classNames) {
         obj.className ? obj.className = obj.className + ' ' + classNames : obj.className = classNames;
     },
-    //调用方法  x.addClass(obj,'classNames') 这里以click为例子
+    //调用方法  x.addClass(obj,'classNames') 
 
     //清空class
     removeClass: function(obj, classNames) {
@@ -68,7 +68,7 @@ var x = {
             return false;
         }
     },
-    //调用方法  x.removeClass(obj,'classNames') 这里以click为例子
+    //调用方法  x.removeClass(obj,'classNames') 
 
     //根据数组的元素操作数组进行排序(从小到大)
     arrSort: function(pros) {
