@@ -80,6 +80,21 @@ var x = {
     },
     //调用方法 Array.sort(arrSort('pros'));
 
+    //冒泡排序
+    sortarrs: function(arr) {
+        for (var i = 0; i < arr.length - 1; i++) {
+            for (var j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        return arr;
+    },
+    //调用方法x.sortarrs();传入的参数为数组
+
     //数组去重
     arrAlong: function(arr) {
         for (var i = 0; i < arr.length; i++) {
@@ -94,6 +109,7 @@ var x = {
     },
 
     //调用方法x.arrAlong();传入的参数为数组
+
 
     //阻止冒泡事件
     stopPropagation: function(event) {
