@@ -110,6 +110,17 @@ var x = {
 
     //调用方法x.arrAlong();传入的参数为数组
 
+    arrAlongIndex: function(arr) {
+        var arrs = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (arrs.indexOf(arr[i]) < 0) {
+                arrs.push(arr[i]);
+            }
+        }
+        return arrs;
+    },
+
+    //调用方法x.arrAlongIndex();传入的参数为数组
 
     //阻止冒泡事件
     stopPropagation: function(event) {
