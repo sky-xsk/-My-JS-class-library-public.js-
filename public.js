@@ -107,8 +107,15 @@ var x = {
         }
         return arr;
     },
-
     //调用方法x.arrAlong();传入的参数为数组
+
+    //数组去重es6
+    toHeavy: function(arr) {
+        var set = new Set(arr);
+        return new Array(...set);
+    },
+    //调用方法x.toHeavy();传入的参数为数组
+
 
     arrAlongIndex: function(arr) {
         var arrs = [];
