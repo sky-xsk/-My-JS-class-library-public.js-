@@ -115,8 +115,13 @@ var x = {
         return new Array(...set);
     },
     //调用方法x.toHeavy();传入的参数为数组
-
-
+   
+    eliminateDuplicates:function(items) {
+        return [...new Set(items)];
+    },
+    //items是指一个数组
+    //调用方法x.eliminateDuplicates(items);
+    
     arrAlongIndex: function(arr) {
         var arrs = [];
         for (var i = 0; i < arr.length; i++) {
